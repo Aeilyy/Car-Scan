@@ -1,0 +1,9 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+python-dotenv>=1.0
+pillow>=10.0
+pillow-heif>=0.16
+openpyxl>=3.1
+rapidocr_onnxruntime>=1.2
+httpx>=0.25

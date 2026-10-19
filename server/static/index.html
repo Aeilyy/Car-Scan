@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#E6E9EC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161D24" media="(prefers-color-scheme: dark)">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CarScan">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="app.css">
+  <title>CarScan</title>
+</head>
+<body>
+
+  <main id="setup" class="view setup" hidden>
+    <form id="setup-form">
+      <h1>CarScan</h1>
+      <label for="server">Server address</label>
+      <input id="server" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"
+             placeholder="100.92.14.7:8000" required>
+      <p class="hint">The laptop's NetBird IP and port. Keep NetBird connected on this phone.</p>
+      <p class="msg error" id="setup-error" hidden></p>
+      <button class="primary" id="btn-connect" type="submit">Connect</button>
+      <button class="link" id="btn-setup-back" type="button" hidden>Back</button>
+    </form>
+  </main>
+
+  <main id="home" class="view home" hidden>
+    <div class="action">
+      <button class="circle" id="btn-scan" type="button" aria-describedby="cap-scan">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 42V14M20 25l12-12 12 12M14 50h36"/></svg>
+      </button>
+      <span class="caption" id="cap-scan">Scan paperwork</span>
+    </div>
+    <div class="action">
+      <button class="circle" id="btn-download" type="button" aria-describedby="cap-dl">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 50V16h9v4h10v-3h9v6h8v27z"/><path d="M26 34l6 6 6-6M32 26v14"/></svg>
+      </button>
+      <span class="caption" id="cap-dl">Download Excel<small id="count"></small></span>
+    </div>
+    <button class="server-status" id="btn-server" type="button" hidden>
+      <span class="dot" id="server-dot"></span><span id="server-label"></span>
+    </button>
+    <input id="file" type="file" accept="image/*" hidden>
+  </main>
+
+  <main id="review" class="view review" hidden>
+    <header class="bar">
+      <button class="link" id="btn-cancel" type="button">Cancel</button>
+      <h1>New entry</h1>
+      <button class="link" id="btn-retake" type="button">Retake</button>
+    </header>
+
+    <figure class="photo" id="photo">
+      <img id="preview" alt="Photo of the car paperwork">
+      <div class="scanline" aria-hidden="true"></div>
+    </figure>
+    <p class="msg" id="scan-status" role="status"></p>
+
+    <div class="field">
+      <label for="owner_name">Owner</label>
+      <input id="owner_name" autocomplete="off" autocapitalize="words">
+      <p class="msg warn" data-warn="owner_name" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="vin">VIN (serial number)</label>
+      <input id="vin" class="vin" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40">
+      <p class="msg warn" data-warn="vin" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="license_plate">Licence plate</label>
+      <div class="plate">
+        <span class="eu" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><g fill="#FFCC00"><circle cx="10" cy="3" r="1"/><circle cx="13.5" cy="4" r="1"/><circle cx="16" cy="6.5" r="1"/><circle cx="17" cy="10" r="1"/><circle cx="16" cy="13.5" r="1"/><circle cx="13.5" cy="16" r="1"/><circle cx="10" cy="17" r="1"/><circle cx="6.5" cy="16" r="1"/><circle cx="4" cy="13.5" r="1"/><circle cx="3" cy="10" r="1"/><circle cx="4" cy="6.5" r="1"/><circle cx="6.5" cy="4" r="1"/></g></svg>
+          RO
+        </span>
+        <input id="license_plate" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20">
+      </div>
+      <p class="msg warn" data-warn="license_plate" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea id="description" rows="3" placeholder="e.g. broken transmission"></textarea>
+    </div>
+
+    <button class="primary send" id="btn-send" type="button" disabled>Send</button>
+  </main>
+
+  <div class="sheet-backdrop" id="sheet" hidden>
+    <div class="sheet" role="dialog" aria-label="Add a photo">
+      <button type="button" data-source="camera">Take photo</button>
+      <button type="button" data-source="gallery">Choose from gallery</button>
+      <button type="button" data-source="cancel" class="cancel">Cancel</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

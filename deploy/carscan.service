@@ -1,0 +1,14 @@
+[Unit]
+Description=CarScan server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=YOUR_USER
+WorkingDirectory=/home/YOUR_USER/carscan/server
+ExecStart=/home/YOUR_USER/carscan/server/run.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

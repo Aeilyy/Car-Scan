@@ -1,0 +1,12 @@
+{
+  "appId": "ro.carscan.app",
+  "appName": "CarScan",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "http",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
